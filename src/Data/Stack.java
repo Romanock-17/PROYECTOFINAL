@@ -77,4 +77,31 @@ public class Stack {
 
         return found;
     }
+    public void DeletePile(int ID){
+        Stack A = new Stack(this.Limit);
+        while (Head.getID() != ID && !EmptyStack()) {
+            A.PileUp(PileDown());
+        }
+        if (Head.getID() == ID && !EmptyStack()){
+            PileDown();
+            JOptionPane.showMessageDialog(null, "El usuario se eliminó exitosamente");
+        }else{
+            JOptionPane.showMessageDialog(null, "El usuario no se encontró en la lista");
+        }
+        FillStack(A);
+    }
+
+    public void ShowUsers() {
+        Stack A = new Stack(this.Limit);
+        SimpleNode P = new SimpleNode();
+        String r = null;
+        String show = "";
+        while (!EmptyStack()) {
+            P = PileDown();
+            r = (P.getUser());
+            A.PileUp(P);
+            show += r + "\n";
+        }
+            JOptionPane.showMessageDialog(null, show);
+    }
 }
