@@ -23,6 +23,9 @@ public class DoubleNode {
     public DoubleNode() {
     }
 
+    public DoubleNode(int id, String name, double price, int amount, String description) {
+    }
+
     public int getID() {
         return ID;
     }
@@ -43,7 +46,7 @@ public class DoubleNode {
         return Price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         Price = price;
     }
 

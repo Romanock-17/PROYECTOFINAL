@@ -8,9 +8,9 @@ public class DoubleLinkedList {
     private DoubleNode Head;
 
 
-    public void Insert(int ID, String name, double price, int amount, String description) {
-        if ( Head == null) {
-            DoubleNode New = new DoubleNode(ID, name, price, amount, description, null,null);
+    public void FillList(int ID, String name, double price, int amount, String description) {
+        DoubleNode New = new DoubleNode(ID, name, price, amount, description, null, null);
+        if ( Head== null) {
             Head = New;
         } else {
             DoubleNode aux = Head;
@@ -41,4 +41,17 @@ public class DoubleLinkedList {
         if(!found) JOptionPane.showMessageDialog(null, "El producto no se encontró en la lista");
     }
 
+    public void ShowProducts(){
+        DoubleNode P = Head;
+        String show="";
+        while(P != null){
+            String product = P.getName();
+            if(product != null) {
+                show += product + " ";
+                P=P.getLigaD();
+            }
+
+        }
+        JOptionPane.showMessageDialog(null, show);
+    }
 }

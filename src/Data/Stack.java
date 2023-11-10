@@ -98,4 +98,18 @@ public class Stack {
         }
         FillStack(A);
     }
+
+    public void ShowUsers() {
+        Stack A = new Stack(this.Limit);
+        SimpleNode P = new SimpleNode();
+        String r = null;
+        String show = "";
+        while (!EmptyStack()) {
+            P = PileDown();
+            r = (P.getUser());
+            A.PileUp(P);
+            show += r + "\n";
+        }
+            JOptionPane.showMessageDialog(null, show);
+    }
 }
