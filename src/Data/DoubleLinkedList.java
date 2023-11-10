@@ -10,16 +10,15 @@ public class DoubleLinkedList {
 
     public void Insert(int ID, String name, double price, int amount, String description) {
         if ( Head == null) {
-            DoubleNode New = new DoubleNode();
+            DoubleNode New = new DoubleNode(ID, name, price, amount, description, null,null);
             Head = New;
         } else {
             DoubleNode aux = Head;
             while (aux.getLigaD() != null) {
                 aux = aux.getLigaD();
             }
-            DoubleNode nuevo = new DoubleNode();
+            DoubleNode nuevo = new DoubleNode(ID, name, price, amount,description, null, aux);
             aux.setLigaD(nuevo);
-            nuevo.setLigaI(aux);
         }
     }
     public void DeleteNode(int ID){

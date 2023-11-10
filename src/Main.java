@@ -48,10 +48,7 @@ public class Main {
                      int ID= Integer.parseInt(JOptionPane.showInputDialog("ID: "));
                      String product = String.valueOf(JOptionPane.showInputDialog("Articulo: "));
                      double price = Integer.parseInt(JOptionPane.showInputDialog("Precio unitario: "));
-                     int amount = Integer.parseInt(JOptionPane.showInputDialog("Cantidad: "));
-                    String description = String.valueOf(JOptionPane.showInputDialog("Descripcion: "));
-                     newList1.FillList(ID, product, price, amount,description);
-                 break;
+        break;
                 case 3:
 
 
