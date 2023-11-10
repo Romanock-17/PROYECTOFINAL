@@ -41,9 +41,9 @@ public class Main {
                     String email = JOptionPane.showInputDialog("Email: ");
                     String user = JOptionPane.showInputDialog("Usuario: ");
                     String password = JOptionPane.showInputDialog("Contraseña: ");
-
-                    Stack1.PileUp(id, name, lastName, email, user, password);
-                    break;
+                    
+                     Stack1.PileUp(id, name, lastName, email, user, password);
+                 break;
                 case 2:
                     int ID= Integer.parseInt(JOptionPane.showInputDialog("ID: "));
                     String product = String.valueOf(JOptionPane.showInputDialog("Articulo: "));
@@ -52,6 +52,7 @@ public class Main {
                     String description = String.valueOf(JOptionPane.showInputDialog("Descripcion: "));
                     newList1.FillList(ID, product, price, amount,description);
                     break;
+
                 case 3:
 
                     break;

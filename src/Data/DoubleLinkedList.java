@@ -7,8 +7,9 @@ import javax.swing.*;
 public class DoubleLinkedList {
     private DoubleNode Head;
 
+
     public void FillList(int ID, String name, double price, int amount, String description) {
-        DoubleNode New = new DoubleNode(ID, name, price, amount, description);
+        DoubleNode New = new DoubleNode(ID, name, price, amount, description, null, null);
         if ( Head== null) {
             Head = New;
         } else {
@@ -16,9 +17,8 @@ public class DoubleLinkedList {
             while (aux.getLigaD() != null) {
                 aux = aux.getLigaD();
             }
-            DoubleNode nuevo = new DoubleNode();
+            DoubleNode nuevo = new DoubleNode(ID, name, price, amount,description, null, aux);
             aux.setLigaD(nuevo);
-            nuevo.setLigaI(aux);
         }
     }
     public void DeleteNode(int ID){
