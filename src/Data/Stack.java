@@ -3,6 +3,7 @@ import Entities.*;
 import Collections.SimpleNode;
 
 import javax.swing.*;
+import java.util.Objects;
 
 public class Stack {
 
@@ -54,21 +55,20 @@ public class Stack {
             PA.PileUp(this.PileDown());
         }
     }
-    public boolean SearchID(int ID) {
+    public User SearchByUsername(String username) {
         Stack A = new Stack(this.Limit);
         boolean found = false;
 
-        while (Head.getUser().getID() != ID && !EmptyStack()) {
+        while (!Objects.equals(Head.getUser().getUserName(), username) && !EmptyStack()) {
             A.PileUp(PileDown());
         }
-        if (Head.getUser().getID() == ID && !EmptyStack()){
+        if (Objects.equals(Head.getUser().getUserName(), username) && !EmptyStack()){
             found = true;
-        }else{
-            JOptionPane.showMessageDialog(null, "El usuario no se encontró en la lista");
         }
+        User M = Head.getUser();
         FillStack(A);
-
-        return found;
+        if(found) return M;
+        else return null;
     }
     public void DeletePile(int ID){
         Stack A = new Stack(this.Limit);

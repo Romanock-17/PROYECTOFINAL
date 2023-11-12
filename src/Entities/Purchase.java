@@ -1,26 +1,24 @@
 package Entities;
 
-import Data.Stack;
+import Data.MatrixStack;
 
 public class Purchase {
+    private static int counterId = 0;
     private int ID;
+    private MatrixStack MPile = new MatrixStack();
     public String date;
     public int userId;
-    public Stack[] stacks;
-    public Purchase () {}
-    public Purchase(int ID, String date, User user, String[][] MP) {
-        this.ID = ID;
+    public Purchase () {
+        this.ID = ++counterId;
+    }
+    public Purchase(String date, int userId) {
         this.date = date;
-        this.user = user;
-        this.MP = MP;
+        this.userId = userId;
+        this.MPile = new MatrixStack();
     }
 
     public int getID() {
         return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
     }
 
     public String getDate() {
@@ -31,19 +29,26 @@ public class Purchase {
         this.date = date;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String[][] getMP() {
-        return MP;
+    public String showMP() {
+        return MPile.ShowMatrixStack();
     }
-
-    public void setMP(String[][] MP) {
-        this.MP = MP;
+    public void pushMP(int[] purchaseEl){
+        if(!MPile.FullStack()){
+            MPile.PileUp(purchaseEl);
+        }
+    }
+    public int[] popMP(){
+        if(!MPile.EmptyStack()){
+            return MPile.PileDown();
+        }
+        return null;
     }
 }

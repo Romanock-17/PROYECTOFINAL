@@ -4,6 +4,7 @@ import Data.Queue;
 import Entities.*;
 
 import javax.swing.*;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -14,7 +15,7 @@ public class Main {
         //Stack Stack2 = new Stack(10);
         //Stack Stack3 = new Stack(10);
         DoubleLinkedList newList1= new DoubleLinkedList();
-        //Queue Queue1 = null;
+        Queue Queue1 = new Queue(10);
         //Queue Queue2 = null;
         //Queue Queue3 = null;
 
@@ -56,18 +57,32 @@ public class Main {
                     break;
 
                 case 3:
-
+                    Purchase purchase = new Purchase();
+                    purchase.setUserId(Stack1.SearchByUsername(String.valueOf(JOptionPane.showInputDialog("Ingrese usuario: "))).getID());
+                    purchase.setDate(String.valueOf(JOptionPane.showInputDialog("Fecha: ")));
+                    String moreProducts = "si";
+                    while (Objects.equals(moreProducts, "si")){
+                        int[] productToEnter = new int[3];
+                        Product product1 = newList1.Search(String.valueOf(JOptionPane.showInputDialog("Producto: ")));
+                        productToEnter[0] = product1.getID();
+                        productToEnter[1] = (Integer.parseInt(JOptionPane.showInputDialog("Cantidad del producto")));
+                        productToEnter[2] = (int) product1.getPrice();
+                        purchase.pushMP(productToEnter);
+                        moreProducts = String.valueOf(JOptionPane.showInputDialog("¿Desea ingresar más datos?"));
+                    }
+                    Queue1.queueUp(purchase);
                     break;
                 case 4:
                     JOptionPane.showMessageDialog(null, "Usuarios\n");
                     Stack1.ShowUsers();
-                    
+
                     break;
                 case 5:
                     JOptionPane.showMessageDialog(null, "Productos\n");
                     newList1.ShowProducts();
                     break;
                 case 6:
+                    Queue1.ShowQueue();
                     break;
 
                 case 7:

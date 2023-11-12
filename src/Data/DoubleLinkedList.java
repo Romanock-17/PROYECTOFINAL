@@ -3,6 +3,7 @@ package Data;
 import Collections.DoubleNode;
 import Entities.*;
 import javax.swing.*;
+import java.util.Objects;
 
 public class DoubleLinkedList {
     private NodeProduct Head;
@@ -20,17 +21,16 @@ public class DoubleLinkedList {
             aux.setLigaD(nuevo);
         }
     }
-
     public void DeleteNode(int ID){
         NodeProduct Q = (NodeProduct) Head.getLigaD();
         boolean found = false;
         NodeProduct aux = new NodeProduct();
-        while(Q != null){
+        while(Q != null && !found){
             if(Q.getProduct().getID() == ID){
                 aux = Q;
                 Q = (NodeProduct) Q.getLigaD();
-                aux.getLigaD().setLigaI(aux.getLigaI());
-                aux.getLigaI().setLigaD(aux.getLigaD());
+                Q.setLigaI(aux.getLigaI());
+                aux.getLigaI().setLigaD(Q);
                 found = true;
                 JOptionPane.showMessageDialog(null, "El producto se eliminó exitosamente");
             }else{
@@ -39,6 +39,7 @@ public class DoubleLinkedList {
         }
         if(!found) JOptionPane.showMessageDialog(null, "El producto no se encontró en la lista");
     }
+
 
     public void ShowProducts(){
         NodeProduct P = Head;
@@ -53,6 +54,7 @@ public class DoubleLinkedList {
         }
         JOptionPane.showMessageDialog(null, show);
     }
+
 /*
     public void DeleteNode(int id) {
         NodeProduct Q = (NodeProduct) Head.getLigaD();
@@ -80,4 +82,17 @@ public class DoubleLinkedList {
         }
     }
 */
+    public Product Search(String productName) {
+        NodeProduct aux = Head;
+        boolean found = false;
+        while (aux != null && !found) {
+            if (Objects.equals(aux.getProduct().getName(), productName)) {
+                found = true;
+            }else if(!found){
+                aux = (NodeProduct) aux.getLigaD();
+            }
+        }
+        if(found) return aux.getProduct();
+        else return null;
+    }
 }
