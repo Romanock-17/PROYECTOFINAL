@@ -1,12 +1,12 @@
 package Data;
-
+import Entities.*;
 import Collections.SimpleNode;
 
 import javax.swing.*;
 
 public class Stack {
 
-    private SimpleNode Head;
+    private NodeUser Head;
     public int Limit, Top;
 
     public Stack(int length) {
@@ -15,8 +15,8 @@ public class Stack {
         this.Head = null;
     }
 
-    public void PileUp(int ID, String Name, String LastName, String email, String user, String password) {
-        SimpleNode X = new SimpleNode(ID, Name, LastName, email, user, password);
+    public void PileUp(User user) {
+        NodeUser X = new NodeUser(user, null);
         Top++;
         if (this.Head != null) {
             X.setLiga(this.Head);
@@ -24,14 +24,12 @@ public class Stack {
         this.Head = X;
     }
 
-    public void PileUp(SimpleNode A) {
-        SimpleNode X = new SimpleNode();
+    public void PileUp(NodeUser A) {
         Top++;
         if (this.Head != null) {
-            X.setLiga(this.Head);
+            A.setLiga(this.Head);
         }
-        this.Head = X;
-
+        this.Head = A;
     }
 
     //Pila matriz 10x3
@@ -43,8 +41,8 @@ public class Stack {
         return Top == Limit;
     }
 
-    public SimpleNode PileDown() {
-        SimpleNode P = Head;
+    public NodeUser PileDown() {
+        NodeUser P = Head;
         Top--;
         Head = Head.getLiga();
         P.setLiga(null);
@@ -53,30 +51,17 @@ public class Stack {
 
     public void FillStack(Stack PA) {
         while (!EmptyStack()) {
-            PA.PileUp(PileDown());
+            PA.PileUp(this.PileDown());
         }
     }
-
-    public void ShowStack() {
-        SimpleNode aux = Head;
-        String Show = "";
-        while (aux != null) {
-            Show += aux.getID() + aux.getName() + aux.getLastName() + aux.getEmail() + aux.getUser() + "\n";
-            aux = aux.getLiga();
-
-        }
-        JOptionPane.showMessageDialog(null, Show);
-        Show = "";
-    }
-
     public boolean SearchID(int ID) {
         Stack A = new Stack(this.Limit);
         boolean found = false;
 
-        while (Head.getID() != ID && !EmptyStack()) {
+        while (Head.getUser().getID() != ID && !EmptyStack()) {
             A.PileUp(PileDown());
         }
-        if (Head.getID() == ID && !EmptyStack()){
+        if (Head.getUser().getID() == ID && !EmptyStack()){
             found = true;
         }else{
             JOptionPane.showMessageDialog(null, "El usuario no se encontró en la lista");
@@ -87,29 +72,30 @@ public class Stack {
     }
     public void DeletePile(int ID){
         Stack A = new Stack(this.Limit);
-        while (Head.getID() != ID && !EmptyStack()) {
+        while (Head.getUser().getID() != ID && !EmptyStack()) {
             A.PileUp(PileDown());
         }
-        if (Head.getID() == ID && !EmptyStack()){
+        if (Head.getUser().getID() == ID && !EmptyStack()){
             PileDown();
             JOptionPane.showMessageDialog(null, "El usuario se eliminó exitosamente");
         }else{
             JOptionPane.showMessageDialog(null, "El usuario no se encontró en la lista");
         }
-        FillStack(A);
+        A.FillStack(this);
     }
 
     public void ShowUsers() {
         Stack A = new Stack(this.Limit);
-        SimpleNode P = new SimpleNode();
+        NodeUser P = new NodeUser();
         String r = null;
         String show = "";
         while (!EmptyStack()) {
             P = PileDown();
-            r = (P.getUser());
+            r = P.getUser().getID() + " " + P.getUser().getUserName();
             A.PileUp(P);
             show += r + "\n";
         }
-            JOptionPane.showMessageDialog(null, show);
+        JOptionPane.showMessageDialog(null, show);
+        A.FillStack(this);
     }
 }

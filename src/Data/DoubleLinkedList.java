@@ -1,15 +1,14 @@
 package Data;
 
 import Collections.DoubleNode;
-
+import Entities.*;
 import javax.swing.*;
 
 public class DoubleLinkedList {
-    private DoubleNode Head;
+    private NodeProduct Head;
 
-
-    public void FillList(int ID, String name, double price, int amount, String description) {
-        DoubleNode New = new DoubleNode(ID, name, price, amount, description, null, null);
+    public void FillList(Product product) {
+        NodeProduct New = new NodeProduct(product, null, null);
         if ( Head== null) {
             Head = New;
         } else {
@@ -17,41 +16,68 @@ public class DoubleLinkedList {
             while (aux.getLigaD() != null) {
                 aux = aux.getLigaD();
             }
-            DoubleNode nuevo = new DoubleNode(ID, name, price, amount,description, null, aux);
+            NodeProduct nuevo = new NodeProduct(product, null, aux);
             aux.setLigaD(nuevo);
         }
     }
+
     public void DeleteNode(int ID){
-        DoubleNode Q = Head.getLigaD();
+        NodeProduct Q = (NodeProduct) Head.getLigaD();
         boolean found = false;
-        DoubleNode aux = new DoubleNode();
+        NodeProduct aux = new NodeProduct();
         while(Q != null){
-            if(Q.getID() == ID){
+            if(Q.getProduct().getID() == ID){
                 aux = Q;
-                Q = Q.getLigaD();
+                Q = (NodeProduct) Q.getLigaD();
                 aux.getLigaD().setLigaI(aux.getLigaI());
                 aux.getLigaI().setLigaD(aux.getLigaD());
                 found = true;
                 JOptionPane.showMessageDialog(null, "El producto se eliminó exitosamente");
-
             }else{
-                Q=Q.getLigaD();
+                Q = (NodeProduct) Q.getLigaD();
             }
         }
         if(!found) JOptionPane.showMessageDialog(null, "El producto no se encontró en la lista");
     }
 
     public void ShowProducts(){
-        DoubleNode P = Head;
+        NodeProduct P = Head;
         String show="";
         while(P != null){
-            String product = P.getName();
+            String product = P.getProduct().getName();
             if(product != null) {
                 show += product + " ";
-                P=P.getLigaD();
+                P = (NodeProduct) P.getLigaD();
             }
 
         }
         JOptionPane.showMessageDialog(null, show);
     }
+/*
+    public void DeleteNode(int id) {
+        NodeProduct Q = (NodeProduct) Head.getLigaD();
+        boolean found = false;
+
+        while (Q != null) {
+            if (Q.getProduct().getID() == id) {
+                // Encontramos el nodo que queremos eliminar
+                if (Q.getLigaD() != null) {
+                    Q.getLigaD().setLigaI(Q.getLigaI());
+                }
+                if (Q.getLigaI() != null) {
+                    Q.getLigaI().setLigaD(Q.getLigaD());
+                }
+                found = true;
+                JOptionPane.showMessageDialog(null, "El producto se eliminó exitosamente");
+                return;  // Salimos del bucle después de encontrar y eliminar el nodo
+            } else {
+                Q = (NodeProduct) Q.getLigaD();
+            }
+        }
+
+        if (!found) {
+            JOptionPane.showMessageDialog(null, "El producto no se encontró en la lista");
+        }
+    }
+*/
 }

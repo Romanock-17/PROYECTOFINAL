@@ -1,6 +1,7 @@
 import Data.DoubleLinkedList;
 import Data.Stack;
 import Data.Queue;
+import Entities.*;
 
 import javax.swing.*;
 import java.util.Scanner;
@@ -10,12 +11,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int option = 0, data = 0;
         Stack Stack1 = new Stack(10);
-        Stack Stack2 = new Stack(10);
-        Stack Stack3 = new Stack(10);
+        //Stack Stack2 = new Stack(10);
+        //Stack Stack3 = new Stack(10);
         DoubleLinkedList newList1= new DoubleLinkedList();
-        Queue Queue1 = null;
-        Queue Queue2 = null;
-        Queue Queue3 = null;
+        //Queue Queue1 = null;
+        //Queue Queue2 = null;
+        //Queue Queue3 = null;
 
         do{
             String menu = "MENÚ\n" +
@@ -35,22 +36,23 @@ public class Main {
 
             switch (option){
                 case 1:
-                    int id = Integer.parseInt(JOptionPane.showInputDialog("ID: "));
-                    String name = JOptionPane.showInputDialog("Nombre: ");
-                    String lastName = JOptionPane.showInputDialog("Apellido: ");
-                    String email = JOptionPane.showInputDialog("Email: ");
-                    String user = JOptionPane.showInputDialog("Usuario: ");
-                    String password = JOptionPane.showInputDialog("Contraseña: ");
-                    
-                     Stack1.PileUp(id, name, lastName, email, user, password);
+                    User user = new User();
+                    user.setID(Integer.parseInt(JOptionPane.showInputDialog("ID: ")));
+                    user.setName(JOptionPane.showInputDialog("Nombre: "));
+                    user.setLastName(JOptionPane.showInputDialog("Apellido: "));
+                    user.setEmail(JOptionPane.showInputDialog("Email: "));
+                    user.setUserName(JOptionPane.showInputDialog("Usuario: "));
+                    user.setPassword(JOptionPane.showInputDialog("Contraseña: "));
+                    Stack1.PileUp(user);
                  break;
                 case 2:
-                    int ID= Integer.parseInt(JOptionPane.showInputDialog("ID: "));
-                    String product = String.valueOf(JOptionPane.showInputDialog("Articulo: "));
-                    double price = Integer.parseInt(JOptionPane.showInputDialog("Precio unitario: "));
-                    int amount = Integer.parseInt(JOptionPane.showInputDialog("Cantidad: "));
-                    String description = String.valueOf(JOptionPane.showInputDialog("Descripcion: "));
-                    newList1.FillList(ID, product, price, amount,description);
+                    Product product = new Product();
+                    product.setID(Integer.parseInt(JOptionPane.showInputDialog("ID: ")));
+                    product.setName(String.valueOf(JOptionPane.showInputDialog("Articulo: ")));
+                    product.setPrice(Integer.parseInt(JOptionPane.showInputDialog("Precio unitario: ")));
+                    product.setAmount(Integer.parseInt(JOptionPane.showInputDialog("Cantidad: ")));
+                    product.setDescription(String.valueOf(JOptionPane.showInputDialog("Descripcion: ")));
+                    newList1.FillList(product);
                     break;
 
                 case 3:
@@ -59,13 +61,12 @@ public class Main {
                 case 4:
                     JOptionPane.showMessageDialog(null, "Usuarios\n");
                     Stack1.ShowUsers();
+                    
                     break;
                 case 5:
                     JOptionPane.showMessageDialog(null, "Productos\n");
                     newList1.ShowProducts();
                     break;
-
-
                 case 6:
                     break;
 
@@ -74,7 +75,6 @@ public class Main {
                     data = Integer.parseInt(eliminarUser);
                     Stack1.DeletePile(data);
                     break;
-
                 case 8:
                     String eliminarProducto = JOptionPane.showInputDialog("Ingrese el ID del producto a eliminar");
                     data = Integer.parseInt(eliminarProducto);
@@ -82,14 +82,8 @@ public class Main {
                     break;
                 case 9:
 
+
                     break;
-
-
-
-
-
-
-
                 case 10:
                     JOptionPane.showMessageDialog(null, "Saliendo");
                     break;
