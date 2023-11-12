@@ -85,15 +85,15 @@ public class Main {
                     Queue1.ShowQueue();
                     break;
 
-                case 7:
+                case 8:
                     String eliminarUser = JOptionPane.showInputDialog("Ingrese el ID del usuario a eliminar");
                     data = Integer.parseInt(eliminarUser);
                     Stack1.DeletePile(data);
                     break;
-                case 8:
+                case 7:
                     String eliminarProducto = JOptionPane.showInputDialog("Ingrese el ID del producto a eliminar");
                     data = Integer.parseInt(eliminarProducto);
-                    newList1.DeleteNode(data);
+                    newList1.Eliminar(data);
                     break;
                 case 9:
 

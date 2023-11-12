@@ -2,6 +2,8 @@ package Data;
 
 import Collections.DoubleNode;
 import Entities.*;
+import org.w3c.dom.Node;
+
 import javax.swing.*;
 import java.util.Objects;
 
@@ -22,7 +24,7 @@ public class DoubleLinkedList {
         }
     }
     public void DeleteNode(int ID){
-        NodeProduct Q = (NodeProduct) Head.getLigaD();
+        NodeProduct Q = (NodeProduct) Head;
         boolean found = false;
         NodeProduct aux = new NodeProduct();
         while(Q != null && !found){
@@ -94,5 +96,26 @@ public class DoubleLinkedList {
         }
         if(found) return aux.getProduct();
         else return null;
+    }
+    public void Eliminar(int id){
+        NodeProduct P =  Head;
+        NodeProduct Q = (NodeProduct) P.getLigaD();
+        boolean found = false;
+        NodeProduct aux=new NodeProduct();
+        while(P!=null && Q!=null){
+            if(Q.getProduct().getID()==id){
+                aux=Q;
+                Q=(NodeProduct) Q.getLigaD();
+                aux.getLigaD().setLigaI(aux.getLigaI());
+                aux.getLigaI().setLigaD(aux.getLigaD());
+                found = true;
+                JOptionPane.showMessageDialog(null, "El dato se eliminó exitosamente");
+
+            }else{
+                Q = (NodeProduct) Q.getLigaD();
+
+            }
+        }
+        if(!found) JOptionPane.showMessageDialog(null, "El dato no se encontró en la lista");
     }
 }
