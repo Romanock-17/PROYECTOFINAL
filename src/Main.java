@@ -30,7 +30,8 @@ public class Main {
                     "7- Eliminar usuario\n" +
                     "8- Eliminar Producto\n" +
                     "9- Eliminar Compra\n" +
-                    "10- Salir";
+                    "10- Modificar compra\n" +
+                    "11- Salir";
 
             String opcio = JOptionPane.showInputDialog(null, menu, "Menú de Opciones", JOptionPane.INFORMATION_MESSAGE);
             option = Integer.parseInt(opcio);
@@ -85,26 +86,82 @@ public class Main {
                     Queue1.ShowQueue();
                     break;
 
-                case 8:
+                case 7:
                     String eliminarUser = JOptionPane.showInputDialog("Ingrese el ID del usuario a eliminar");
                     data = Integer.parseInt(eliminarUser);
                     Stack1.DeletePile(data);
                     break;
-                case 7:
+                case 8:
                     String eliminarProducto = JOptionPane.showInputDialog("Ingrese el ID del producto a eliminar");
                     data = Integer.parseInt(eliminarProducto);
-                    newList1.Eliminar(data);
+
+                    Product deletedProduct = newList1.DeleteProduct(data);
+                    if(deletedProduct != null) {
+                        JOptionPane.showMessageDialog(null, "Producto eliminado");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Producto no eliminado");
+                    }
                     break;
+
                 case 9:
-
-
+                    String eliminarCompra = JOptionPane.showInputDialog("Ingrese el ID de la compra a eliminar");
+                    data = Integer.parseInt(eliminarCompra);
+                    Purchase result = Queue1.DeletePurchaseByID(data);
+                    if(result != null) {
+                        JOptionPane.showMessageDialog(null, "Compra eliminada");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Compra no eliminada");
+                    }
                     break;
+
                 case 10:
+                    String modificarCompra = JOptionPane.showInputDialog("Ingrese el ID de la compra que desea modificar");
+                    data = Integer.parseInt(modificarCompra);
+
+                    Purchase oldPurchase = Queue1.SearchById(data);
+                    oldPurchase.setDate(String.valueOf(JOptionPane.showInputDialog("Fecha anterior: " + oldPurchase.getDate() + "\n Nueva fecha: "  )));
+                    oldPurchase.setUserId(Integer.parseInt(JOptionPane.showInputDialog("Usuario anterior: " + oldPurchase.getDate() + "\n Nuevo usuario: "  )));
+
+                    String moreProductsToModify = (String.valueOf(JOptionPane.showInputDialog("Lista de productos: " + oldPurchase.showMP() + "\n ¿Desea modificar productos?: "  )));
+
+                    while (Objects.equals(moreProductsToModify, "si")){
+
+                        int ModifiedProduct = (Integer.parseInt(JOptionPane.showInputDialog("Ingrese ID del producto a modificar: ")));
+
+                        int[] productToEnter = new int[3];
+                        Product product1 = newList1.Search(String.valueOf(JOptionPane.showInputDialog("Producto: ")));
+                        productToEnter[0] = product1.getID();
+                        productToEnter[1] = (Integer.parseInt(JOptionPane.showInputDialog("Cantidad del producto")));
+                        productToEnter[2] = (int) product1.getPrice();
+                        oldPurchase.getMPile().ModifyByID(ModifiedProduct, productToEnter);
+                        moreProductsToModify = String.valueOf(JOptionPane.showInputDialog("¿Desea modificar otro producto en la lista de compra?"));
+                    }
+
+                    moreProductsToModify = (String.valueOf(JOptionPane.showInputDialog("¿Desea añadir otro producto?")));
+
+                    while (Objects.equals(moreProductsToModify, "si")){
+                        int[] productToEnter = new int[3];
+                        Product product1 = newList1.Search(String.valueOf(JOptionPane.showInputDialog("Producto: ")));
+                        productToEnter[0] = product1.getID();
+                        productToEnter[1] = (Integer.parseInt(JOptionPane.showInputDialog("Cantidad del producto")));
+                        productToEnter[2] = (int) product1.getPrice();
+                        oldPurchase.pushMP(productToEnter);
+                        moreProductsToModify = String.valueOf(JOptionPane.showInputDialog("¿Desea ingresar más datos?"));
+                    }
+
+                    Purchase beforePurchase = Queue1.ModifyPurchaseByID(data, oldPurchase);
+                    StringBuilder show = new StringBuilder();
+                    show.append(beforePurchase.getID()).append(" ").append(beforePurchase.getUserId()).append(" ").append(beforePurchase.getDate()).append(" ").append(beforePurchase.showMP()).append("\n");
+                    JOptionPane.showMessageDialog(null, "Compra anterior: \n" + show);
+                    show.append(oldPurchase.getID()).append(" ").append(oldPurchase.getUserId()).append(" ").append(oldPurchase.getDate()).append(" ").append(oldPurchase.showMP()).append("\n");
+                    JOptionPane.showMessageDialog(null, "Compra modificada: \n" + show);
+
+                case 11:
                     JOptionPane.showMessageDialog(null, "Saliendo");
                     break;
             }
 
-        }while(option!=10);
+        }while(option!=11);
 
     }
 }

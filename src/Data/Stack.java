@@ -71,7 +71,7 @@ public class Stack {
         else return null;
     }
     public void DeletePile(int ID){
-        Stack A = new Stack(this.Limit);
+        Stack A = new Stack(this.Limit + 1);
         while (Head.getUser().getID() != ID && !EmptyStack()) {
             A.PileUp(PileDown());
         }

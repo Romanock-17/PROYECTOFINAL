@@ -19,7 +19,7 @@ public class NodeProduct extends DoubleNode {
         this.product = product;
     }
     public NodeProduct getLigaI() {
-        return (NodeProduct) super.getLigaD();
+        return (NodeProduct) super.getLigaI();
     }
 
 }

@@ -42,42 +42,42 @@ public class MatrixStack {
         return (P);
     }
 
+    public int[] ModifyByID(int ID, int[] newData) {
+        MatrixStack A = new MatrixStack();
+
+        while (Head[0] != ID && !EmptyStack()) {
+            A.PileUp(PileDown());
+        }
+        if (Head[0] == ID && !EmptyStack()){
+            int[] oldData = Head;
+            Head = newData;
+            return oldData;
+        }
+        FillStack(A);
+
+        return null;
+    }
+
+    public int[] SearchID(int ID) {
+        MatrixStack A = new MatrixStack();
+
+
+        while (Head[0] != ID && !EmptyStack()) {
+            A.PileUp(PileDown());
+        }
+        if (Head[0] == ID && !EmptyStack()){
+            return Head;
+        }
+        FillStack(A);
+
+        return null;
+    }
+
     public void FillStack(MatrixStack PA) {
         while (!EmptyStack()) {
             PA.PileUp(this.PileDown());
         }
     }
-
-    public boolean SearchID(int ID) {
-        MatrixStack A = new MatrixStack();
-        boolean found = false;
-
-        while (Head[0] != ID && !EmptyStack()) {
-            A.PileUp(PileDown());
-        }
-        if (Head[0] == ID && !EmptyStack()){
-            found = true;
-        }else{
-            JOptionPane.showMessageDialog(null, "No se encontró");
-        }
-        FillStack(A);
-
-        return found;
-    }
-    /*
-    public void DeletePile(int ID){
-        MatrixStack A = new MatrixStack();
-        while (Head[0] != ID && !EmptyStack()) {
-            A.PileUp(PileDown());
-        }
-        if (Head[0] == ID && !EmptyStack()){
-            PileDown();
-            JOptionPane.showMessageDialog(null, "Se eliminó exitosamente");
-        }else{
-            JOptionPane.showMessageDialog(null, "No se encontró en la lista");
-        }
-        A.FillStack(this);
-    }*/
     public String ShowMatrixStack() {
         MatrixStack A = new MatrixStack();
         int[] P = new int[3];

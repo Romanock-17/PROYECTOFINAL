@@ -17,6 +17,14 @@ public class Purchase {
         this.MPile = new MatrixStack();
     }
 
+    public MatrixStack getMPile() {
+        return MPile;
+    }
+
+    public void setMPile(MatrixStack MPile) {
+        this.MPile = MPile;
+    }
+
     public int getID() {
         return ID;
     }

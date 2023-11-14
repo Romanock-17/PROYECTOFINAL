@@ -23,6 +23,7 @@ public class DoubleLinkedList {
             aux.setLigaD(nuevo);
         }
     }
+    /*
     public void DeleteNode(int ID){
         NodeProduct Q = (NodeProduct) Head;
         boolean found = false;
@@ -41,7 +42,7 @@ public class DoubleLinkedList {
         }
         if(!found) JOptionPane.showMessageDialog(null, "El producto no se encontró en la lista");
     }
-
+*/
 
     public void ShowProducts(){
         NodeProduct P = Head;
@@ -57,7 +58,7 @@ public class DoubleLinkedList {
         JOptionPane.showMessageDialog(null, show);
     }
 
-/*
+
     public void DeleteNode(int id) {
         NodeProduct Q = (NodeProduct) Head.getLigaD();
         boolean found = false;
@@ -83,7 +84,7 @@ public class DoubleLinkedList {
             JOptionPane.showMessageDialog(null, "El producto no se encontró en la lista");
         }
     }
-*/
+
     public Product Search(String productName) {
         NodeProduct aux = Head;
         boolean found = false;
@@ -97,25 +98,33 @@ public class DoubleLinkedList {
         if(found) return aux.getProduct();
         else return null;
     }
-    public void Eliminar(int id){
-        NodeProduct P =  Head;
-        NodeProduct Q = (NodeProduct) P.getLigaD();
-        boolean found = false;
-        NodeProduct aux=new NodeProduct();
-        while(P!=null && Q!=null){
-            if(Q.getProduct().getID()==id){
-                aux=Q;
-                Q=(NodeProduct) Q.getLigaD();
-                aux.getLigaD().setLigaI(aux.getLigaI());
-                aux.getLigaI().setLigaD(aux.getLigaD());
-                found = true;
-                JOptionPane.showMessageDialog(null, "El dato se eliminó exitosamente");
+    public Product DeleteProduct (int id){
 
-            }else{
-                Q = (NodeProduct) Q.getLigaD();
+        NodeProduct P = Head;
+        while (P != null && P.getProduct().getID() != id) {
+            P = (NodeProduct) P.getLigaD();
+        }
 
+        if (P == null) {
+            return null; // ID not found in the list
+        }
+
+        // If the node to be deleted is the head
+        if (P == Head) {
+            Head = (NodeProduct) P.getLigaD();
+            if (Head != null) {
+                Head.setLigaI(null);
+            }
+        } else {
+            NodeProduct previous = P.getLigaI();
+            NodeProduct after = (NodeProduct) P.getLigaD();
+            previous.setLigaD(after);
+
+            if (after != null) {
+                after.setLigaI(previous);
             }
         }
-        if(!found) JOptionPane.showMessageDialog(null, "El dato no se encontró en la lista");
+
+        return P.getProduct();
     }
 }

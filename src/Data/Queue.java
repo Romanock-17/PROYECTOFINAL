@@ -62,7 +62,53 @@ public class Queue {
             aux.setLiga(New2);
         }
     }*/
+    public Purchase SearchById(int id) {
+        Queue A = new Queue(this.limit + 1);
+        while (Head.getPurchase().getID() != id &&  !queueEmpty()){
+            A.queueUp(this.queueDown());
+        }
 
+        if(Head.getPurchase().getID() == id){
+            Purchase oldPurchase = this.queueDown();
+            A.queueUp(oldPurchase);
+            this.FillQueue(A);
+            return oldPurchase;
+        }else{
+            this.FillQueue(A);
+            return null;
+        }
+    }
+
+    public Purchase ModifyPurchaseByID(int id, Purchase newPurchase){
+        Queue A = new Queue(this.limit + 1);
+        while (Head.getPurchase().getID() != id &&  !queueEmpty()){
+            A.queueUp(this.queueDown());
+        }
+
+        if(Head.getPurchase().getID() == id){
+            Purchase oldPurchase = this.queueDown();
+            A.queueUp(newPurchase);
+            this.FillQueue(A);
+            return oldPurchase;
+        }else{
+            this.FillQueue(A);
+            return null;
+        }
+    }
+    public Purchase DeletePurchaseByID (int id){
+        Queue A = new Queue(this.limit + 1);
+        while(Head.getPurchase().getID() != id && !queueEmpty()){
+            A.queueUp(this.queueDown());
+        }
+        if(Head.getPurchase().getID() == id){
+            Purchase deletedPurchase = this.queueDown();
+            this.FillQueue(A);
+            return deletedPurchase;
+        }else{
+            this.FillQueue(A);
+            return null;
+        }
+    }
     public void ShowQueue(){
         NodePurchase aux = Head;
         StringBuilder show = new StringBuilder();
